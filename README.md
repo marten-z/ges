@@ -1,2 +1,2 @@
-# ges
+# GES
 Groceries expenses statistics

@@ -51,6 +51,9 @@ ges.controller('CategoriesController', function($rootScope, $scope, $http) {
             $rootScope.isLoading = false;
         });
 
+    $scope.addCategory = function() {
+    	// Show dialog with input field
+    };
 });
 
 ges.controller('ProductsController', function($scope) {

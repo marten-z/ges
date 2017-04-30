@@ -14,7 +14,7 @@ if($_SERVER['REQUEST_METHOD'] === 'GET') {
 
 http_response_code(400); // Missing parameters, return 400 Bad request
 header('Content-type: application/json');
-echo json_encode(array());
+echo '400 Bad request';
 exit;
 
 ?>

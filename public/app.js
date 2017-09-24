@@ -41,7 +41,7 @@ ges.controller('CategoriesController', function($rootScope, $scope, $http) {
 
     $rootScope.isLoading = true;
 
-    $http.get('/api.php?entity=categories')
+    $http.get('/categories')
         .then(function(response) {
             $scope.categories = response.data;
             $rootScope.isLoading = false;

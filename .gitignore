@@ -6,4 +6,4 @@
 .project
 .settings/
 
-config.php
+src/settings.php

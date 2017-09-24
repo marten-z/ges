@@ -1,0 +1,33 @@
+<div class="mdl-card mdl-shadow--2dp">
+    <div class="mdl-card__title">
+        <h2 class="mdl-card__title-text">Categorieën</h2>
+    </div>
+    <div class="mdl-card__supporting-text">
+
+    <table class="mdl-data-table mdl-js-data-table mdl-data-table--selectable mdl-shadow--2dp">
+		<thead>
+			<tr>
+                <th class="mdl-data-table__cell--non-numeric">Categorie</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr ng-repeat="category in categories">
+                <td class="mdl-data-table__cell--non-numeric">{{category.name}}</td>
+			</tr>
+		</tbody>
+	</table>
+
+	</div>
+	<div class="mdl-card__actions mdl-card--border">
+		<a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" ng-click="addCategory()">
+            Voeg toe
+		</a>
+	</div>
+	
+	<div class="mdl-card__menu">
+		<button class="mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect">
+            <i class="material-icons">share</i>
+        </button>
+	</div>
+
+</div>

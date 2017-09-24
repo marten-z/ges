@@ -1,38 +1,67 @@
-<!DOCTYPE html>
-<html>
-    <head>
-        <meta charset="utf-8"/>
-        <title>Slim 3</title>
-        <link href='//fonts.googleapis.com/css?family=Lato:300' rel='stylesheet' type='text/css'>
-        <style>
-            body {
-                margin: 50px 0 0 0;
-                padding: 0;
-                width: 100%;
-                font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-                text-align: center;
-                color: #aaa;
-                font-size: 18px;
-            }
+<!doctype html>
 
-            h1 {
-                color: #719e40;
-                letter-spacing: -3px;
-                font-family: 'Lato', sans-serif;
-                font-size: 100px;
-                font-weight: 200;
-                margin-bottom: 0;
-            }
-        </style>
-    </head>
-    <body>
-        <h1>Slim</h1>
-        <div>a microframework for PHP</div>
+<html lang="en" ng-app="ges">
+<head>
+  <meta charset="utf-8">
 
-        <?php if (isset($name)) : ?>
-            <h2>Hello <?= htmlspecialchars($name); ?>!</h2>
-        <?php else: ?>
-            <p>Try <a href="http://www.slimframework.com">SlimFramework</a></p>
-        <?php endif; ?>
-    </body>
+  <title>Boodschappen</title>
+  <meta name="description" content="Boodschappen">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link rel="stylesheet" href="./assets/material.blue-indigo.min.css">
+  <link rel="stylesheet" href="./assets/material-icons.css">
+  <link rel="stylesheet" href="./assets/custom.css">
+
+  <!--[if lt IE 9]>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.js"></script>
+  <![endif]-->
+</head>
+
+<body ng-controller="MainController">
+
+	<div id="container">
+	  <!-- Always shows a header, even in smaller screens. -->
+		<div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
+			<header class="mdl-layout__header">
+				<div class="mdl-layout__header-row">
+					<!-- Title -->
+                    <span class="mdl-layout-title">Boodschappen</span>
+					<!-- Add spacer, to align navigation to the right -->
+					<div class="mdl-layout-spacer"></div>
+					<!-- Navigation. We hide it in small screens. -->
+					<nav class="mdl-navigation mdl-layout--large-screen-only">
+						<a class="mdl-navigation__link" ui-sref="groceries">Boodschappen</a>
+						<a class="mdl-navigation__link" ui-sref="categories">Categorieën</a>
+						<a class="mdl-navigation__link" ui-sref="products">Producten</a>
+					</nav>
+				</div>
+			</header>
+		<div ng-show="isLoading" id="p2" class="mdl-progress mdl-js-progress mdl-progress__indeterminate"></div>
+		<div class="mdl-layout__drawer">
+			<span class="mdl-layout-title">Boodschappen</span>
+			<nav class="mdl-navigation">
+				<a class="mdl-navigation__link" ui-sref="groceries">Boodschappen</a>
+				<a class="mdl-navigation__link" ui-sref="categories">Categorieën</a>
+				<a class="mdl-navigation__link" ui-sref="products">Producten</a>
+			</nav>
+		</div>
+		<main class="mdl-layout__content" id="main">
+            <ui-view></ui-view>
+		</main>
+	</div>
+
+<!--    <div id="demo-toast-example" class="mdl-js-snackbar mdl-snackbar">
+      <div class="mdl-snackbar__text"></div>
+      <button class="mdl-snackbar__action" type="button"></button>
+    </div>
+  </div>
+-->
+
+	<script src="./js/material.min.js"></script>
+	<script src="./js/angular-1.6.3.min.js"></script>
+	<script src="./js/angular-ui-router.min.js"></script>
+	<script src="./app.js"></script>
+
+</body>
 </html>

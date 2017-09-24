@@ -1,7 +1,7 @@
 <?php
 class CategoryMapper extends Mapper {
     
-    public function getCategories() {
+    public function getAll() {
         $sql = "SELECT c.id, c.name
             from categories c";
         $stmt = $this->db->query($sql);
@@ -18,7 +18,7 @@ class CategoryMapper extends Mapper {
      * @param int $category_id The ID of the category
      * @return CategoryEntity  The category
      */
-    public function getCategoryById($category_id) {
+    public function getById($category_id) {
         $sql = "SELECT c.id, c.name
             from categories c
             where c.id = :category_id";
@@ -29,7 +29,7 @@ class CategoryMapper extends Mapper {
         }
     }
     
-    public function save(CategoryEntity $category) {
+    public function create(CategoryEntity $category) {
         $sql = "insert into categories
             (name) values
             (:name)";
@@ -38,15 +38,29 @@ class CategoryMapper extends Mapper {
             "name" => $category->getName(),
         ]);
         if(!$result) {
-            throw new Exception("could not save record");
+            throw new Exception("could not create record");
         }
     }
     
-    public function deleteCategory($category_id) {
-        $sql = "DELETE from categories c
-            where c.id = :category_id";
+    public function update(CategoryEntity $category) {
+        $sql = "update categories
+            set name = :name
+            where id = :id";
         $stmt = $this->db->prepare($sql);
-        $result = $stmt->execute(["category_id" => $category_id]);
+        $result = $stmt->execute([
+            "id" => $category->getId(),
+            "name" => $category->getName(),
+        ]);
+        if(!$result) {
+            throw new Exception("could not update record");
+        }
+    }
+    
+    public function delete($category_id) {
+        $sql = "DELETE from categories
+            where id = :id";
+        $stmt = $this->db->prepare($sql);
+        $result = $stmt->execute(["id" => $category_id]);
         if(!$result) {
             throw new Exception("could not delete record");
         }

@@ -34,7 +34,6 @@ ges.controller('MainController', function($rootScope) {
 ges.controller('GroceriesController', function($scope) {
 
     $scope.message = 'HOME';
-
 });
 
 ges.controller('CategoriesController', function($rootScope, $scope, $http) {
@@ -47,6 +46,7 @@ ges.controller('CategoriesController', function($rootScope, $scope, $http) {
             $rootScope.isLoading = false;
         })
         .catch(function(response) {
+	    	// TODO: Show error message
             $scope.categories = {};
             $rootScope.isLoading = false;
         });
@@ -56,8 +56,23 @@ ges.controller('CategoriesController', function($rootScope, $scope, $http) {
     };
 });
 
-ges.controller('ProductsController', function($scope) {
+ges.controller('ProductsController', function($rootScope, $scope, $http) {
+	
+	$rootScope.isLoading = true;
 
-    $scope.message = 'PRODUCTEN';
+	$http.get('/products')
+	    .then(function(response) {
+	        $scope.products = response.data;
+	        $rootScope.isLoading = false;
+	    })
+	    .catch(function(response) {
+	    	// TODO: Show error message
+	        $scope.products = {};
+	        $rootScope.isLoading = false;
+	    });
+	
+	$scope.addProduct = function() {
+		// Show dialog with input field
+	};
 });
 

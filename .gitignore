@@ -1,10 +1,10 @@
-/vendor/
-/logs/*
-!/logs/README.md
+ges-server/vendor/
+ges-server/logs/*
+!ges-server/logs/README.md
 
 .buildpath
 .project
 .settings/
 
-src/settings.php
-composer.lock
+ges-server/src/settings.php
+ges-server/composer.lock

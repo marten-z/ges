@@ -9,8 +9,8 @@ $app->get('/', function (Request $request, Response $response, array $args) {
     // Sample log message
     $this->logger->info("GET /");
 
-    // Render index view
-    return $this->renderer->render($response, 'index.phtml', $args);
+    // Render index view, without content
+    return $response->withStatus(204);
 });
 
 // Categories

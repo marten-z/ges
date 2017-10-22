@@ -7,3 +7,4 @@
 .settings/
 
 src/settings.php
+composer.lock

@@ -5,10 +5,10 @@ import MenuItem from 'material-ui/MenuItem';
 
 export default class DrawerUndocked extends React.Component {
 
-  constructor(props) {
-    super(props);
-    this.props = {open: false};
-  }
+	constructor(props) {
+		super(props);
+		this.props = {open: false};
+	}
 
   render() {
     return (

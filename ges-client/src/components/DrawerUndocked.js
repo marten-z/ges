@@ -18,9 +18,9 @@ export default class DrawerUndocked extends React.Component {
           open={this.props.open}
           onRequestChange={(open) => this.props.onToggleDrawer(open)}
         >
-        	<MenuItem onClick={() => this.props.onToggleDrawer(false)}><Link to="/">Dashboard</Link></MenuItem>
-        	<MenuItem onClick={() => this.props.onToggleDrawer(false)}><Link to="/categories">Categorieën</Link></MenuItem>
-        	<MenuItem onClick={() => this.props.onToggleDrawer(false)}><Link to="/products">Producten</Link></MenuItem>
+        	<MenuItem onClick={() => this.props.onToggleDrawer(false)} containerElement={<Link to="/" />} primaryText="Dashboard" />
+        	<MenuItem onClick={() => this.props.onToggleDrawer(false)} containerElement={<Link to="/categories" />} primaryText="Categorieën" />
+        	<MenuItem onClick={() => this.props.onToggleDrawer(false)} containerElement={<Link to="/products" />} primaryText="Producten" />
         </Drawer>
     );
   }

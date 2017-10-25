@@ -9,7 +9,7 @@ class ProductMapper extends Mapper {
         while($row = $stmt->fetch()) {
             $results[] = new ProductEntity($row);
         }
-        return $results;
+        return new ProductList($results);
     }
     
     /**

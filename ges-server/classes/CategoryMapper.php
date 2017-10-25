@@ -9,7 +9,7 @@ class CategoryMapper extends Mapper {
         while($row = $stmt->fetch()) {
             $results[] = new CategoryEntity($row);
         }
-        return $results;
+        return new CategoryList($results);
     }
     
     /**

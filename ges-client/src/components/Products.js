@@ -1,7 +1,12 @@
 import React from 'react';
+
 import {List, ListItem} from 'material-ui/List';
 import Subheader from 'material-ui/Subheader';
+import FloatingActionButton from 'material-ui/FloatingActionButton';
+import ContentAdd from 'material-ui/svg-icons/content/add';
+
 import ProductDialog from './ProductDialog.js';
+
 
 export default class Products extends React.Component {
 
@@ -35,9 +40,10 @@ export default class Products extends React.Component {
 			});
 	}
 	
-	handleOpenDialog(product) {
-		console.log('handleOpenDialog');
-		console.log(product);
+	handleOpenDialog(product) {	
+		if (product === null) {
+			product = {name: ''}
+		}
 		
 		this.setState({
 			dialogOpen: true,
@@ -46,8 +52,6 @@ export default class Products extends React.Component {
 	}
 	
 	handleCloseDialog() {
-		console.log('handleCloseDialog');
-	    
 		this.setState({
 			dialogOpen: false,
 			selectedProduct: {}
@@ -57,6 +61,7 @@ export default class Products extends React.Component {
 	saveProduct(product) {
 		console.log('saveProduct');
 		console.log(product);
+		
 		const that = this;
 		const url = 'http://localhost:8080/product'
 		
@@ -97,6 +102,9 @@ export default class Products extends React.Component {
 		            <Subheader inset={false}>Producten</Subheader>
 		            {productItems}
 	        	</List>
+	        	<FloatingActionButton style={{marginRight:20}} onClick={() => this.handleOpenDialog(null)}>
+	        		<ContentAdd />
+	        	</FloatingActionButton>
 	        	<ProductDialog open={dialogOpen} product={selectedProduct} handleCloseDialog={this.handleCloseDialog} saveProduct={this.saveProduct} />
         	</div>
         )

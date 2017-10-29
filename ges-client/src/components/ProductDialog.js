@@ -1,4 +1,5 @@
 import React from 'react';
+
 import Dialog from 'material-ui/Dialog';
 import FlatButton from 'material-ui/FlatButton';
 import TextField from 'material-ui/TextField';
@@ -12,10 +13,12 @@ export default class Products extends React.Component {
 		
 		this.handleSave = this.handleSave.bind(this);
 		this.handleClose = this.handleClose.bind(this);
+		this.handleCategoryChange = this.handleCategoryChange.bind(this);
+		this.handleNameChange = this.handleNameChange.bind(this);
 		
 		this.state = {
 			open: props.open, 
-			product: props.product, 
+			product: props.product,
 			categories: []
 		}
 	}
@@ -28,11 +31,32 @@ export default class Products extends React.Component {
 		});
 	}
 	
-	handleChange(event, index, value) { 
-		this.setState({category: value});
+	handleCategoryChange(event, index, value) { 
+		const product = this.state.product;
+		product.categoryId = value;
+		
+		console.log('changed category to');
+		console.log(product.categoryId);
+		
+		this.setState({product});
 	}
 	
-	handleSave(product) {
+	handleNameChange(event) { 
+		const product = this.state.product;
+		product.name = event.target.value;
+		
+		this.setState({product});
+	}
+	
+	handleSave() {
+		const product = this.state.product;
+		
+		console.log('handleSave');
+		console.log(product);
+		
+		product.name = this.state.name;
+		product.categoryId = this.state.categoryId;
+		
 		// Save
 		this.props.saveProduct(product);
 		this.handleClose();
@@ -80,12 +104,13 @@ export default class Products extends React.Component {
 			                hintText="Product naam"
 			                floatingLabelText="Product naam"
 			                defaultValue={product.name}
+	                		onChange={this.handleNameChange}
 			              />
 			            <br />
 		                <SelectField
 			                floatingLabelText="Categorie"
 			                value={product.categoryId}
-			                onChange={this.handleChange}
+			                onChange={this.handleCategoryChange}
 			            >
 			                {categoryItems}
 			            </SelectField>

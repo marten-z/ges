@@ -16,10 +16,12 @@ injectTapEventPlugin();
 ReactDOM.render(
 	<Router>
 		<MuiThemeProvider>
-			<Top />
-			<Route exact path="/" component={Dashboard} />
-			<Route path="/categories" component={Categories} />
-			<Route path="/products" component={Products} />
+			<div>
+				<Top />
+				<Route exact path="/" component={Dashboard} />
+				<Route path="/categories" component={Categories} />
+				<Route path="/products" component={Products} />
+			</div>
 		</MuiThemeProvider>
     </Router>,
   document.getElementById('app')

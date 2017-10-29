@@ -2,7 +2,7 @@
 class ProductMapper extends Mapper {
     
     public function getAll() {
-        $sql = "SELECT id, name
+        $sql = "SELECT id, name, category_id
             from products";
         $stmt = $this->db->query($sql);
         $results = [];
@@ -19,7 +19,7 @@ class ProductMapper extends Mapper {
      * @return ProductEntity  The product
      */
     public function getById($product_id) {
-        $sql = "SELECT id, name
+        $sql = "SELECT id, name, category_id
             from products
             where id = :product_id";
         $stmt = $this->db->prepare($sql);
@@ -31,11 +31,12 @@ class ProductMapper extends Mapper {
     
     public function create(ProductEntity $product) {
         $sql = "insert into products
-            (name) values
-            (:name)";
+            (name, category_id) values
+            (:name, :category_id)";
         $stmt = $this->db->prepare($sql);
         $result = $stmt->execute([
             "name" => $product->getName(),
+            "category_id" => $product->getCategoryId()
         ]);
         if(!$result) {
             throw new Exception("could not create record");
@@ -44,12 +45,14 @@ class ProductMapper extends Mapper {
     
     public function update(ProductEntity $product) {
         $sql = "update products
-            set name = :name
+            set name = :name,
+            category_id = :category_id
             where id = :id";
         $stmt = $this->db->prepare($sql);
         $result = $stmt->execute([
             "id" => $product->getId(),
             "name" => $product->getName(),
+            "category_id" => $product->getCategoryId()
         ]);
         if(!$result) {
             throw new Exception("could not update record");

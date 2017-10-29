@@ -3,6 +3,7 @@ class ProductEntity implements JsonSerializable {
     
     private $id;
     private $name;
+    private $categoryId;
     
     /**
      * Accept an array of data matching properties of this class
@@ -16,6 +17,7 @@ class ProductEntity implements JsonSerializable {
             $this->id = $data['id'];
         }
         $this->name = $data['name'];
+        $this->categoryId = $data['category_id'];
     }
     
     public function getId() {
@@ -26,10 +28,15 @@ class ProductEntity implements JsonSerializable {
         return $this->name;
     }
     
+    public function getCategoryId() {
+        return $this->categoryId;
+    }
+    
     public function jsonSerialize() {
         return [
             'id' => $this->id,
-            'name' => $this->name
+            'name' => $this->name,
+            'categoryId' => $this->categoryId
         ];
     }
 }

@@ -9,22 +9,37 @@ export default class Products extends React.Component {
 
 	constructor(props) {
 		super(props);
+		
+		this.handleSave = this.handleSave.bind(this);
+		this.handleClose = this.handleClose.bind(this);
+		
 		this.state = {
 			open: props.open, 
 			product: props.product, 
 			categories: []
 		}
 	}
-
-	handleClose = () => {
-		this.setState({open: false});
+	
+	componentWillReceiveProps(nextProps) {
+		this.setState({
+			open: nextProps.open, 
+			product: nextProps.product, 
+			categories: []
+		});
 	}
 	
-	handleChange = (event, index, value) => this.setState({category: value});
+	handleChange(event, index, value) { 
+		this.setState({category: value});
+	}
 	
-	handleSave = () => {
+	handleSave(product) {
 		// Save
+		this.props.saveProduct(product);
 		this.handleClose();
+	}
+	
+	handleClose() {
+		this.props.handleCloseDialog();
 	}
 
     render() {
@@ -64,11 +79,12 @@ export default class Products extends React.Component {
 	                	<TextField
 			                hintText="Product naam"
 			                floatingLabelText="Product naam"
+			                defaultValue={product.name}
 			              />
 			            <br />
 		                <SelectField
 			                floatingLabelText="Categorie"
-			                value={this.state.category}
+			                value={product.categoryId}
 			                onChange={this.handleChange}
 			            >
 			                {categoryItems}

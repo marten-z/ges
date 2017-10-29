@@ -41,6 +41,7 @@ class ProductMapper extends Mapper {
         if(!$result) {
             throw new Exception("could not create record");
         }
+        return $result;
     }
     
     public function update(ProductEntity $product) {
@@ -57,6 +58,7 @@ class ProductMapper extends Mapper {
         if(!$result) {
             throw new Exception("could not update record");
         }
+        return $result;
     }
     
     public function delete($product_id) {

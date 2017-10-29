@@ -27,13 +27,18 @@ $app->post('/products/new', function (Request $request, Response $response) {
     $data = $request->getParsedBody();
     $product_data = [];
     $product_data['name'] = filter_var($data['name'], FILTER_SANITIZE_STRING);
+    $product_data['category_id'] = (int) $data['categoryId'];
+    
+    if(strlen($product_data['name']) < 1 || !is_numeric($product_data['category_id'])) {
+        return $response->withStatus(400);
+    }
     
     $product = new ProductEntity($product_data);
     
     $mapper = new ProductMapper($this->db);
     try {
-        $mapper->create($product);
-        return $response->withStatus(201);
+        $result = $mapper->create($product);
+        return $response->withJson($result, 201);
     } catch (Exception $e) {
         return $response->withStatus(500);
     }
@@ -44,8 +49,9 @@ $app->put('/products/{id}', function (Request $request, Response $response, arra
     $product_data = [];
     $product_data['id'] = (int) $args['id'];
     $product_data['name'] = filter_var($data['name'], FILTER_SANITIZE_STRING);
+    $product_data['category_id'] = (int) $data['categoryId'];
     
-    if(!is_numeric($product_data['id']) || strlen($product_data['name']) < 1) {
+    if(!is_numeric($product_data['id']) || strlen($product_data['name']) < 1 || !is_numeric($product_data['category_id'])) {
         return $response->withStatus(400);
     }
     
@@ -53,8 +59,8 @@ $app->put('/products/{id}', function (Request $request, Response $response, arra
     
     $mapper = new ProductMapper($this->db);
     try {
-        $mapper->update($product);
-        return $response->withStatus(202);
+        $result = $mapper->update($product);
+        return $response->withJson($result, 202);
     } catch (Exception $e) {
         return $response->withStatus(500);
     }

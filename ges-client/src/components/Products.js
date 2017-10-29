@@ -16,6 +16,7 @@ export default class Products extends React.Component {
 	    this.saveProduct = this.saveProduct.bind(this);
 	    this.handleOpenDialog = this.handleOpenDialog.bind(this);
 	    this.handleCloseDialog = this.handleCloseDialog.bind(this);
+	    this.loadProducts = this.loadProducts.bind(this);
 	    
 		this.state = {
 				dialogOpen: false,
@@ -25,6 +26,10 @@ export default class Products extends React.Component {
 	}
 	
 	componentDidMount() {
+		this.loadProducts();
+	}
+	
+	loadProducts() {
 		const that = this;
 		const url = 'http://localhost:8080/products'
 		
@@ -59,22 +64,41 @@ export default class Products extends React.Component {
 	}
 	
 	saveProduct(product) {
-		console.log('saveProduct');
-		console.log(product);
-		
 		const that = this;
-		const url = 'http://localhost:8080/product'
+		const url = 'http://localhost:8080/products/';
+		const headers = {
+			    'Accept': 'application/json',
+			    'Content-Type': 'application/json'
+			  };
+		const body = JSON.stringify({
+		    "name": product.name,
+		    "categoryId": product.categoryId
+		   });
 		
-//		fetch(url)
-//			.then(function(response) {
-//				return response.json();
-//			})
-//			.then(function(data) {
-//				that.setState({products: data.products});
-//			})
-//			.catch((error) => {
-//				console.error(error);
-//			});
+		let fetchObj;
+		if (!product.id) {
+			fetchObj = fetch(url + 'new', {
+				   method: 'post',
+				   headers: headers,
+				   body: body
+				  });
+		} else {			
+			fetchObj = fetch(url + product.id, {
+			   method: 'put',
+			   headers: headers,
+			   body: body
+			  });
+		}
+		
+		fetchObj.then(function(response) {
+			return response.json();
+		})
+		.then(function(data) {
+			that.loadProducts();
+		})
+		.catch((error) => {
+			console.error(error);
+		})
 	}
 
     render() {

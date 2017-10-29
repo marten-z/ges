@@ -10,6 +10,7 @@ export default class Categories extends React.Component {
 	}
 	
 	componentDidMount() {
+		// TODO: Move to service
 		const that = this;
 		const url = 'http://localhost:8080/categories'
 		

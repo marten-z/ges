@@ -15,44 +15,57 @@ export default class Products extends React.Component {
 		this.handleClose = this.handleClose.bind(this);
 		this.handleCategoryChange = this.handleCategoryChange.bind(this);
 		this.handleNameChange = this.handleNameChange.bind(this);
+		this.loadCategories = this.loadCategories.bind(this);
 		
 		this.state = {
 			open: props.open, 
 			product: props.product,
+			name: props.product.name,
+			categoryId: props.product.categoryId,
 			categories: []
 		}
+	}
+	
+	loadCategories() {
+		// TODO: Move to service
+		const that = this;
+		const url = 'http://localhost:8080/categories'
+			
+		fetch(url)
+			.then(function(response) {
+				return response.json();
+			})
+			.then(function(data) {
+				that.setState({categories: data.categories});
+			})
+			.catch((error) => {
+				console.error(error);
+			});
 	}
 	
 	componentWillReceiveProps(nextProps) {
 		this.setState({
 			open: nextProps.open, 
-			product: nextProps.product, 
+			product: nextProps.product,
+			name: nextProps.product.name,
+			categoryId: nextProps.product.categoryId,
 			categories: []
 		});
+		this.loadCategories();
 	}
 	
 	handleCategoryChange(event, index, value) { 
-		const product = this.state.product;
-		product.categoryId = value;
-		
-		console.log('changed category to');
-		console.log(product.categoryId);
-		
-		this.setState({product});
+		const categoryId = value;
+		this.setState({categoryId});
 	}
 	
 	handleNameChange(event) { 
-		const product = this.state.product;
-		product.name = event.target.value;
-		
-		this.setState({product});
+		const name = event.target.value;		
+		this.setState({name});
 	}
 	
 	handleSave() {
 		const product = this.state.product;
-		
-		console.log('handleSave');
-		console.log(product);
 		
 		product.name = this.state.name;
 		product.categoryId = this.state.categoryId;
@@ -82,11 +95,9 @@ export default class Products extends React.Component {
     	    ];
     	
     	const product = this.state.product;
-    	
-    	const categories = this.state.categories;
-    	const categoryItems = categories.map((category) => {
+    	const categoryItems = this.state.categories.map((category) => {
 			  return (
-					  <MenuItem value={category.id} primaryText={category.name} />
+					  <MenuItem key={category.id} value={category.id} primaryText={category.name} />
 			  )
 		});
     	
